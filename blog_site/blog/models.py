@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
+from taggit.managers import TaggableManager
 
 
 class PublishedManager(models.Manager):
@@ -11,6 +12,8 @@ class PublishedManager(models.Manager):
 
 
 # Create your models here.
+
+
 class Post(models.Model):
 
     class Status(models.TextChoices):
@@ -26,6 +29,7 @@ class Post(models.Model):
     updated = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=2, choices=Status.choices, default=Status.DRAFT)
 
+    tags = TaggableManager()
     odjects = models.Manager()
     published = PublishedManager()
 
